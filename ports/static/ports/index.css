@@ -1,0 +1,38 @@
+div {
+    width: 75%;
+    margin-bottom: 10px;
+}
+
+.boxed {
+    border: 1px solid black;
+    background-color: green;
+    width: 10%;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+div a{
+    text-decoration: none;
+    color: black;
+}
+
+table {
+    background-color: lightgrey;
+}
+
+th {
+    font-size: 1.5rem;
+    border-spacing: 20px 20px;
+    padding: 20px 20px 20px 20px;
+    border: 1px solid #000;
+    border-collapse: collapse;
+}
+
+td {
+    font-size: 1rem;
+    text-align-all: center;
+    border-spacing: 20px 20px;
+    padding: 20px 20px 20px 20px;
+    border: 1px solid #000;
+    border-collapse: collapse;
+}

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block page_title %}
+    Sample Ballast project
+{% endblock %}
+{% block page_content %}
+    <header>
+    <link rel="stylesheet" href="{% static 'ports/index.css' %}">
+    </header>
+    <div>
+        <div>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Port Name</th>
+                    <th>Temp</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th>Date</th>
+                </tr>
+                {% for port in ports_list %}
+                    <tr>
+                        <td>{{ port.id }}</td>
+                        <td>{{ port.port_name }}</td>
+                        <td>{{ port.temperature }}</td>
+                        <td>{{ port.latitude }}</td>
+                        <td>{{ port.longitude }}</td>
+                        <td>{{ port.date }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="boxed">
+           <a href="{% url 'add-ports' %}">New</a>
+        </div>
+    </div>
+{% endblock %}
