@@ -7,9 +7,23 @@
     <header>
     <link rel="stylesheet" href="{% static 'ports/index.css' %}">
     </header>
-    <div>
+    <div class="ports">
         <div>
-            <table>
+            <table class="table2">
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <td>
+                       <a href="{% url 'add-ports' %}">New</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <table class="table1">
                 <tr>
                     <th>ID</th>
                     <th>Port Name</th>
@@ -29,9 +43,6 @@
                     </tr>
                 {% endfor %}
             </table>
-        </div>
-        <div class="boxed">
-           <a href="{% url 'add-ports' %}">New</a>
         </div>
     </div>
 {% endblock %}

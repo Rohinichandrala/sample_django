@@ -8,7 +8,7 @@ class Port(models.Model):
     temperature = models.IntegerField()
     latitude = models.DecimalField(max_digits=5, decimal_places=2)
     longitude = models.DecimalField(max_digits=5, decimal_places=2)
-    date = models.DateField()
+    date = models.DateField(auto_now=True)
 
     def __str__(self):
         return f'Port {self.port_name} with temperature {self.temperature} ' \

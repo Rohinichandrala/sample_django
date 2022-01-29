@@ -1,6 +1,8 @@
-div {
-    width: 75%;
+div.ports {
+    width: 60%;
+    margin-top: 10px;
     margin-bottom: 10px;
+    background-color: lightgrey;
 }
 
 .boxed {
@@ -15,12 +17,32 @@ div a{
     text-decoration: none;
     color: black;
 }
-
-table {
-    background-color: lightgrey;
+table.table2 {
+    width: 100%;
+    direction: ltr;
+    padding: 10px 5px 5px 5px;
 }
 
-th {
+table.table2 tr{
+    width: 100%;
+    direction: ltr;
+}
+
+table.table2 td {
+    border: 1px solid black;
+    background-color: green;
+    width: 15%;
+    text-align: center;
+    font-size: 1.5rem;
+    margin-top: 20px;
+}
+
+table.table1 {
+    width: 100%;
+    padding: 5px 5px 5px 5px;
+}
+
+table.table1 th {
     font-size: 1.5rem;
     border-spacing: 20px 20px;
     padding: 20px 20px 20px 20px;
@@ -28,7 +50,7 @@ th {
     border-collapse: collapse;
 }
 
-td {
+table.table1 td {
     font-size: 1rem;
     text-align-all: center;
     border-spacing: 20px 20px;

@@ -1,7 +1,51 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block page_title %}
     Add port details
 {% endblock %}
 {% block page_content %}
-    <h4>Add the fields to collect port information</h4>
+    <header>
+        <link rel="stylesheet" href="{% static 'ports/add.css' %}">
+    </header>
+    <form action='/ports/add' method="post">
+        {% csrf_token %}
+        <div class="ports">
+            <div>
+                <table class="table1">
+                    <tr>
+                        <td class='boxed'>Port Name</td>
+                        <td><input id="port_name" name="port_name" type="text"></td>
+                    </tr>
+                    <tr>
+                        <td class='boxed'>Temp</td>
+                        <td><input id='temp' name="temperature" type="text"></td>
+                    </tr>
+                    <tr>
+                        <td class='boxed'>Latitude</td>
+                        <td><input id='lat' name="latitude" type="text"></td>
+                    </tr>
+                    <tr>
+                        <td class='boxed'>Longitude</td>
+                        <td><input id='long' name="longitude" type="text"></td>
+                    </tr>
+                    <tr>
+                        <td class="boxed-insert" colspan="2">
+                            <button class='boxed-insert' style="background-color:green; border-color:black;"
+                                    type="submit">Insert
+                            </button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="boxed-insert" colspan="2">
+                            {% if has_error %}
+                                <textarea id='port-validation-error' class="validation-error"
+                                      disabled="true">{{ error_msg }}</textarea>
+                            {% endif %}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </form>
 {% endblock %}
