@@ -41,3 +41,9 @@ input {
     color: black;
     text-align: left;
 }
+
+ul {
+    text-decoration: none;
+    list-style:none;
+    padding-inline-start: 10px;
+}
