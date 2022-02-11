@@ -5,44 +5,48 @@
 {% endblock %}
 {% block page_content %}
     <header>
-    <link rel="stylesheet" href="{% static 'ports/index.css' %}">
+        <link rel="stylesheet" href="{% static 'ports/index.css' %}">
     </header>
-    <div class="ports">
-        <div>
-            <table class="table2">
-                <tr>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <td>
-                       <a href="{% url 'add-ports' %}">New</a>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div>
-            <table class="table1">
-                <tr>
-                    <th>ID</th>
-                    <th>Port Name</th>
-                    <th>Temp</th>
-                    <th>Latitude</th>
-                    <th>Longitude</th>
-                    <th>Date</th>
-                </tr>
-                {% for port in ports_list %}
+    <form>
+        <div class="ports">
+            <div>
+                <table class="table2">
                     <tr>
-                        <td>{{ port.id }}</td>
-                        <td>{{ port.port_name }}</td>
-                        <td>{{ port.temperature }}</td>
-                        <td>{{ port.latitude }}</td>
-                        <td>{{ port.longitude }}</td>
-                        <td>{{ port.date }}</td>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <td>
+                           <a href="{% url 'upload' %}">CSV</a>
+                        </td>
+                        <td>
+                            <a href="{% url 'add-ports' %}">New</a>
+                        </td>
                     </tr>
-                {% endfor %}
-            </table>
+                </table>
+            </div>
+            <div>
+                <table class="table1">
+                    <tr>
+                        <th>ID</th>
+                        <th>Port Name</th>
+                        <th>Temp</th>
+                        <th>Latitude</th>
+                        <th>Longitude</th>
+                        <th>Date</th>
+                    </tr>
+                    {% for port in ports_list %}
+                        <tr>
+                            <td>{{ port.id }}</td>
+                            <td>{{ port.port_name }}</td>
+                            <td>{{ port.temperature }}</td>
+                            <td>{{ port.latitude }}</td>
+                            <td>{{ port.longitude }}</td>
+                            <td>{{ port.date }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
         </div>
-    </div>
+    </form>
 {% endblock %}

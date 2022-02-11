@@ -3,8 +3,12 @@ from django.http import HttpResponse, HttpResponseNotFound
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from ports.models import Port
-from .add_form import AddForm
+from ports.models import BatchPort
+from .add_form import AddForm, BatchImportPortForm
 from django.template.loader import render_to_string
+from django.views.generic.base import View
+import pandas as pd
+from django.template import loader
 
 
 # Create your views here.
@@ -43,3 +47,54 @@ def ports_add(request):
     except:
         render_string = render_to_string('404.html')
         return HttpResponseNotFound(render_string)
+
+
+# def upload_batch(request):
+#     form = BatchImportPortForm()
+#     return render(request, 'ports/batch_import.html', {
+#         "form": form
+#     })
+
+def sample_csv_view(request):
+    # Create the HttpResponse object with the appropriate CSV header.
+    response = HttpResponse(
+        content_type='text/csv',
+        headers={'Content-Disposition': 'attachment; filename="somefilename.csv"'},
+    )
+
+    csv_data = (('port_name', 'temperature', 'latitude', 'longitude'),
+                ('Halifax', '-10', '22.9', '89.9'),
+                ('Montreal', '-15', '66.8', '123.9')
+                )
+
+    t = loader.get_template('ports/sample_port_data.txt')
+    c = {'data': csv_data}
+    response.write(t.render(c))
+    return response
+
+
+class UploadBatchPortView(View):
+    def get(self, request):
+        form = BatchImportPortForm()
+        return render(request, 'ports/batch_import.html', {
+            "form": form
+        })
+
+    def post(self, request):
+        submitted_form = BatchImportPortForm(request.POST, request.FILES)
+        if submitted_form.is_valid():
+            uploaded_file = BatchPort(batch_import_csv=request.FILES['import_ports'])
+            uploaded_file.save()
+            with open(uploaded_file.batch_import_csv.path, 'r') as fp:
+                reader = pd.read_csv(fp)
+                for _, row in reader.iterrows():
+                    port_info = Port(
+                        port_name=row['port_name'],
+                        temperature=row['temperature'],
+                        latitude=row['latitude'],
+                        longitude=row['longitude']
+                    )
+                    port_info.save()
+                fp.close()
+            return_path = reverse('ports-index', args=[])
+            return HttpResponseRedirect(return_path)

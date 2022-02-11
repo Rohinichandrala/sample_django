@@ -4,4 +4,6 @@ from . import views
 urlpatterns = [
     path('', views.ports_main, name='ports-index'),
     path('add', views.ports_add, name='add-ports'),
+    path('upload-file', views.UploadBatchPortView.as_view(), name='upload'),
+    path('download-sample-file', views.sample_csv_view, name='download-port-sample-data'),
 ]

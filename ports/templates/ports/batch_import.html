@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block page_title %}
+    Sample Ballast project
+{% endblock %}
+{% block page_content %}
+    <header>
+        <link rel="stylesheet" href="{% static 'ports/index.css' %}">
+    </header>
+    <form action="/ports/upload-file" method="POST", enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form }}
+        <br>
+        <br>
+    <button>Upload!</button>
+    <br>
+    <p>A sample csv file can be found <a href="{% url 'download-port-sample-data' %}">here</a></p>
+  </form>
+{% endblock %}

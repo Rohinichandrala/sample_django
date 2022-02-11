@@ -25,3 +25,7 @@ class AddForm(forms.Form):
                                        "max_value": "Longitude values should be less than 180",
                                        "min_value": "Longitude values should be greater than -180"
                                    })
+
+
+class BatchImportPortForm(forms.Form):
+    import_ports = forms.FileField(label="Upload csv file with ports information")

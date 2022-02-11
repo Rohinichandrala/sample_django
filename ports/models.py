@@ -13,3 +13,7 @@ class Port(models.Model):
     def __str__(self):
         return f'Port {self.port_name} with temperature {self.temperature} ' \
                f'located at lat/long ({self.latitude},{self.longitude})'
+
+
+class BatchPort(models.Model):
+    batch_import_csv = models.FileField(upload_to='ports')
