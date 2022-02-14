@@ -29,3 +29,19 @@ class AddForm(forms.Form):
 
 class BatchImportPortForm(forms.Form):
     import_ports = forms.FileField(label="Upload csv file with ports information")
+
+
+class SearchForm(forms.Form):
+    port_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'placeholder': 'Port Name'}),
+                                required=False)
+    min_latitude = forms.DecimalField(min_value=-90, widget=forms.TextInput(attrs={'placeholder': 'Min Latitude'}),
+                                      required=False,
+                                      error_messages={
+                                          "min_value": "Latitude values should be greater than -90"
+                                      })
+    max_latitude = forms.DecimalField(max_value=90, widget=forms.TextInput(
+        attrs={'placeholder': 'Max Latitude', 'style': "font-size:13px"}),
+                                      required=False,
+                                      error_messages={
+                                          "max_value": "Latitude values should be greater than 90"
+                                      })

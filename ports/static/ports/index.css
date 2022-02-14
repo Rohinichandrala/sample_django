@@ -13,17 +13,18 @@ div.ports {
     font-size: 1.5rem;
 }
 
-div a{
+div a {
     text-decoration: none;
     color: black;
 }
+
 table.table2 {
     width: 100%;
     direction: ltr;
     padding: 10px 5px 5px 5px;
 }
 
-table.table2 tr{
+table.table2 tr {
     width: 100%;
     direction: ltr;
 }
@@ -55,6 +56,24 @@ table.table1 td {
     text-align-all: center;
     border-spacing: 20px 20px;
     padding: 20px 20px 20px 20px;
+    border: 1px solid #000;
+    border-collapse: collapse;
+}
+
+table.table2 tr td button {
+    background-color: green;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1.3rem;
+}
+
+table.table2 tr th input{
+    font-size: 12px;
+    text-align-all: center;
+    border-spacing: 20px 20px;
+    padding: 10px 10px 10px 10px;
     border: 1px solid #000;
     border-collapse: collapse;
 }

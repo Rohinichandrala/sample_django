@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from ports.models import Port
 from ports.models import BatchPort
-from .add_form import AddForm, BatchImportPortForm
+from .add_form import AddForm, BatchImportPortForm, SearchForm
 from django.template.loader import render_to_string
 from django.views.generic.base import View
 import pandas as pd
@@ -12,6 +12,41 @@ from django.template import loader
 
 
 # Create your views here.
+class MainPort(View):
+    def get(self, request):
+        ports_list = Port.objects.all()
+        form = SearchForm()
+        return render(request, 'ports/index.html', {
+            'ports_list': ports_list,
+            'form': form,
+            "invalidSearch": False
+        })
+
+    def post(self, request):
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            port_list = Port.objects.all()
+            filtered_ports = form.cleaned_data.get('port_name')
+            min_lat = form.cleaned_data.get('min_latitude')
+            max_lat = form.cleaned_data.get('max_latitude')
+            print("Entered port", filtered_ports)
+            if filtered_ports and filtered_ports.strip():
+                port_list = port_list.filter(port_name__contains=filtered_ports)
+            if min_lat is not None:
+                port_list = port_list.filter(latitude__gt=min_lat)
+            if max_lat is not None:
+                port_list = port_list.filter(latitude__lt=max_lat)
+            return render(request, 'ports/index.html', {
+                'ports_list': port_list,
+                'form': form,
+                "invalidSearch": False
+            })
+        else:
+            return render(request, 'ports/index.html', {
+                'form': form,
+                "invalidSearch": True
+            })
+
 
 def ports_main(request):
     ports_list = Port.objects.all()

@@ -7,46 +7,62 @@
     <header>
         <link rel="stylesheet" href="{% static 'ports/index.css' %}">
     </header>
-    <form>
-        <div class="ports">
-            <div>
+    <div class="ports">
+        <div>
+            <form action="/ports/" method="post">
+                {% csrf_token %}
                 <table class="table2">
                     <tr>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
+                        <th>
+                            {{ form.port_name }}
+                        </th>
+                        <th>
+                            {{ form.min_latitude }}
+                        </th>
+                        <th>
+                            {{ form.max_latitude }}
+                        </th>
                         <td>
-                           <a href="{% url 'upload' %}">CSV</a>
+                            <button> Search</button>
+                        </td>
+                        <td>
+                            <a href="{% url 'upload' %}">CSV</a>
                         </td>
                         <td>
                             <a href="{% url 'add-ports' %}">New</a>
                         </td>
                     </tr>
-                </table>
-            </div>
-            <div>
-                <table class="table1">
-                    <tr>
-                        <th>ID</th>
-                        <th>Port Name</th>
-                        <th>Temp</th>
-                        <th>Latitude</th>
-                        <th>Longitude</th>
-                        <th>Date</th>
-                    </tr>
-                    {% for port in ports_list %}
+                    {% if invalidSearch %}
                         <tr>
-                            <td>{{ port.id }}</td>
-                            <td>{{ port.port_name }}</td>
-                            <td>{{ port.temperature }}</td>
-                            <td>{{ port.latitude }}</td>
-                            <td>{{ port.longitude }}</td>
-                            <td>{{ port.date }}</td>
+                            <td colspan="6" style="background-color: lightgrey;color: darkred;border: none">
+                                Please check Latitude values. Allowed range is -90 to 90
+                            </td>
                         </tr>
-                    {% endfor %}
+                    {% endif %}
                 </table>
-            </div>
+            </form>
         </div>
-    </form>
+        <div>
+            <table class="table1">
+                <tr>
+                    <th>ID</th>
+                    <th>Port Name</th>
+                    <th>Temp</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th>Date</th>
+                </tr>
+                {% for port in ports_list %}
+                    <tr>
+                        <td>{{ port.id }}</td>
+                        <td>{{ port.port_name }}</td>
+                        <td>{{ port.temperature }}</td>
+                        <td>{{ port.latitude }}</td>
+                        <td>{{ port.longitude }}</td>
+                        <td>{{ port.date }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
 {% endblock %}
