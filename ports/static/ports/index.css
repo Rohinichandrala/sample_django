@@ -1,5 +1,5 @@
 div.ports {
-    width: 60%;
+    width: 65%;
     margin-top: 10px;
     margin-bottom: 10px;
     background-color: lightgrey;
@@ -69,11 +69,19 @@ table.table2 tr td button {
     font-size: 1.3rem;
 }
 
-table.table2 tr th input{
+table.table2 tr th input {
     font-size: 12px;
     text-align-all: center;
     border-spacing: 20px 20px;
     padding: 10px 10px 10px 10px;
     border: 1px solid #000;
     border-collapse: collapse;
+}
+
+table.table1 tr td btn {
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
 }

@@ -1,0 +1,49 @@
+div.ports {
+    width: 30%;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    background-color: lightgrey;
+}
+
+table.table1 {
+    width: 100%;
+    padding: 5px 5px 5px 5px;
+    border-spacing: 15px 15px;
+}
+
+table.table1 td {
+    text-align-all: center;
+    border-collapse: collapse;
+    width:25%
+}
+
+.boxed {
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1.3rem;
+}
+
+.boxed-insert {
+    text-align: center;
+    font-size: 1.3rem;
+}
+
+input {
+    font-size: 1.3rem;
+    width: 80%;
+}
+
+.validation-error {
+    background-color: pink;
+    width: 80%;
+    border: 1px solid black;
+    font-size: 1rem;
+    color: black;
+    text-align: left;
+}
+
+ul {
+    text-decoration: none;
+    list-style:none;
+    padding-inline-start: 10px;
+}

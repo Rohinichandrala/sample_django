@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from ports.models import Port
 from ports.models import BatchPort
-from .add_form import AddForm, BatchImportPortForm, SearchForm
+from .forms import AddForm, BatchImportPortForm, SearchForm
 from django.template.loader import render_to_string
 from django.views.generic.base import View
 import pandas as pd
@@ -48,13 +48,6 @@ class MainPort(View):
             })
 
 
-def ports_main(request):
-    ports_list = Port.objects.all()
-    return render(request, 'ports/index.html', {
-        'ports_list': ports_list
-    })
-
-
 def ports_add(request):
     try:
         has_error = False
@@ -83,12 +76,6 @@ def ports_add(request):
         render_string = render_to_string('404.html')
         return HttpResponseNotFound(render_string)
 
-
-# def upload_batch(request):
-#     form = BatchImportPortForm()
-#     return render(request, 'ports/batch_import.html', {
-#         "form": form
-#     })
 
 def sample_csv_view(request):
     # Create the HttpResponse object with the appropriate CSV header.
@@ -133,3 +120,43 @@ class UploadBatchPortView(View):
                 fp.close()
             return_path = reverse('ports-index', args=[])
             return HttpResponseRedirect(return_path)
+
+
+class EditView(View):
+    def get(self, request, port_id):
+        port_info = Port.objects.get(pk=port_id)
+        form = AddForm()
+        form.fields["port_name"].initial = port_info.port_name
+        form.fields["temperature"].initial = port_info.temperature
+        form.fields["latitude"].initial = port_info.latitude
+        form.fields["longitude"].initial = port_info.longitude
+        return render(request, 'ports/edit.html', {
+            "forms": form,
+            "has_error": False
+        })
+
+    def post(self, request, port_id):
+        form = AddForm(request.POST)
+        if form.is_valid():
+            db_port = Port.objects.get(pk=port_id)
+            db_port.port_name = form.cleaned_data.get('port_name')
+            db_port.temperature = form.cleaned_data.get('temperature')
+            db_port.latitude = form.cleaned_data.get('latitude')
+            db_port.longitude = form.cleaned_data.get('longitude')
+            db_port.save()
+            resolved_path = reverse('ports-index', args=[])
+            return HttpResponseRedirect(resolved_path)
+        else:
+            has_error = True
+            return render(request, 'ports/edit.html', {
+                "forms": form,
+                "has_error": has_error
+            })
+
+
+class DeleteView(View):
+    def get(self, request, port_id):
+        port_info = Port.objects.get(pk=port_id)
+        port_info.delete()
+        resolved_path = reverse('ports-index', args=[])
+        return HttpResponseRedirect(resolved_path)

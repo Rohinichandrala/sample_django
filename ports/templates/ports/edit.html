@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block page_title %}
+    Add port details
+{% endblock %}
+{% block page_content %}
+    <header>
+        <link rel="stylesheet" href="{% static 'ports/edit.css' %}">
+    </header>
+    <form method="post">
+        {% csrf_token %}
+        <div class="ports">
+            <div>
+                <table class="table1">
+                    <tr>
+                        <td class='boxed'>{{ forms.port_name.label_tag }}</td>
+                        <td>{{ forms.port_name }}</td>
+                    </tr>
+                    <tr>
+                        <td class='boxed'>{{ forms.temperature.label_tag }}</td>
+                        <td>{{ forms.temperature }}</td>
+                    </tr>
+                    <tr>
+                        <td class='boxed'>{{ forms.latitude.label_tag }}</td>
+                        <td>{{ forms.latitude }}</td>
+                    </tr>
+                    <tr>
+                        <td class='boxed'>{{ forms.longitude.label_tag }}</td>
+                        <td>{{ forms.longitude }}</td>
+                    </tr>
+                    <tr>
+                        <td class="boxed-insert" colspan="2">
+                            <button class='boxed-insert' style="background-color:green; border-color:black;"
+                                    type="submit">Update
+                            </button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="boxed-insert" colspan="2">
+                        {% if has_error %}
+                                <div id='port-validation-error' class="validation-error"
+                                      disabled="true">
+                                {% if forms.port_name.errors %} {{ forms.port_name.errors }} {% endif %}
+                                {% if forms.temperature.errors %} {{ forms.temperature.errors }} {% endif %}
+                                {% if forms.latitude.errors %} {{ forms.latitude.errors }} {% endif %}
+                                {% if forms.longitude.errors %} {{ forms.longitude.errors }} {% endif %}
+                                </div>
+                        {% endif %}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </form>
+{% endblock %}
